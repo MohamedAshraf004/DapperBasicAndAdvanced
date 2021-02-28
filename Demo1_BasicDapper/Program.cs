@@ -27,14 +27,14 @@ namespace Demo1_BasicDapper
             //WriteSet(GetPeople());
             Console.ReadLine();
         }
-
+        //All methods have async version
         private static void BasicRead()
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
                 string sql = "select * from dbo.Person";
 
-                var people = cnn.Query<PersonModel>(sql);
+                var people = cnn.Query<PersonModel>(sql,commandType:CommandType.Text);
 
                 foreach (var person in people)
                 {
@@ -78,7 +78,7 @@ namespace Demo1_BasicDapper
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
                 var p = new DynamicParameters();
-                p.Add("@LastName", lastName);
+                p.Add("@LastName", lastName, dbType:DbType.String, ParameterDirection.Input);
 
                 string sql = "select * from dbo.Person where LastName = @LastName";
 
@@ -95,6 +95,7 @@ namespace Demo1_BasicDapper
         {
             using (IDbConnection cnn = new SqlConnection(GetConnectionString()))
             {
+                // AnonymousParameters
                 var p = new
                 {
                     LastName = lastName

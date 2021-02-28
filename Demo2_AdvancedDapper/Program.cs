@@ -182,11 +182,11 @@ namespace Demo2_AdvancedDapper
 
                     try
                     {
-                        // anthor action in the transaction 
-                        //this action will make an error 
+                        // anthor action in the transaction
+                        //this action will make an error
                         //I should specify with transaction I implement this action as showen
                         cnn.Execute("update dbo.Person set LastName = '1'", transaction: trans);
-                        //if succeeded then commit the transaction 
+                        //if succeeded then commit the transaction
                         trans.Commit();
                     }
                     catch (Exception ex)
